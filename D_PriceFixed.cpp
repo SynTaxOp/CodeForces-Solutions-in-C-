@@ -28,44 +28,44 @@ void solve()
 {
  int n;
  cin>>n;
- vi A(n);
- vi B(n);
- int mn=1e15;
+ vp V(n);
  fo(i,0,n)
  {
-    cin>>A[i];
-    cin>>B[i];
-    mn=min(mn,B[i]);
- }
- vp V;
- fo(i,0,n)
- {
-     V.push_back({B[i],A[i]});
+    cin>>V[i].second>>V[i].first;
  }
  sort(all(V));
- reverse(all(V));
+ int s=0;
+ int e=n-1;
+ int bought=0;
  int ans=0;
- bool b=0;
- int v;
- fo(i,0,n)
+ while(s<=e)
  {
-   v=min(mn,V[i].second);
-   V[i].second-=v;
-   mn-=v;
-   if(mn==0)
+   if(V[s].first<=bought)
    {
-       b=1;
-       break;
+     bought+=V[s].second;
+     ans+=V[s].second;
+     s++;
+   }
+   else
+   {
+     int req=min(V[s].first-bought,V[e].second);
+     V[e].second-=req;
+     bought+=req;
+     ans+=(2*req);
+     if(V[e].second==0)
+     {
+       e--;
+     }
    }
  }
- fo(i,0,)
+ cout<<ans<<el;
 }
 int32_t main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   int tc = 1;
-  cin >> tc;
+  // cin >> tc;
   while (tc--)
   {  
     solve();
